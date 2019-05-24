@@ -203,15 +203,9 @@ class LDAPUser(User):
             "authentication", "ldap_search_filter",
             vars={"username": username.encode("utf-8")}).strip('"')
 
-        connect = ldap.open(ldap_server)
+        connect = ldap.initialize(ldap_server)
         try:
-            result = connect.search_s(
-                ldap_search_base, ldap.SCOPE_SUBTREE, ldap_search_filter)
-            if len(result) == 0:
-                entity = ldap_search_filter % {'username': username}
-                raise ldap.LDAPError("Invalid ldap entity:%s" % entity)
-
-            connect.bind_s(result[0][0], password)
+            connect.simple_bind_s(username, password)
             connect.unbind_s()
             return True
         except ldap.INVALID_CREDENTIALS:

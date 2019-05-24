@@ -42,3 +42,5 @@ po/gen-pot
 *.orig
 *.rej
 *.pem
+.project
+.pydevproject
