@@ -59,3 +59,6 @@
 
 # User IDs regarded as Wok admin
 # ldap_admin_id = "foo@foo.com, bar@bar.com"
+
+# Account suffix
+# ldap_user_suffix = "@bar.com"
