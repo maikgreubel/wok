@@ -202,10 +202,12 @@ class LDAPUser(User):
         ldap_search_filter = config.get(
             "authentication", "ldap_search_filter",
             vars={"username": username.encode("utf-8")}).strip('"')
+        ldap_user_suffix = config.get(
+            "authentication", "ldap_user_suffix").strip('"')
 
         connect = ldap.initialize(ldap_server)
         try:
-            connect.simple_bind_s(username, password)
+            connect.simple_bind_s(username + ldap_user_suffix, password)
             connect.unbind_s()
             return True
         except ldap.INVALID_CREDENTIALS:
