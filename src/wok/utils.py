@@ -230,8 +230,10 @@ def load_plugin(plugin_name, plugin_config):
         options = get_plugin_config_options()
         plugin_app = import_class(plugin_class)(options)
     except (ImportError, Exception) as e:
+        
         cherrypy.log.error_log.error(
-            f'Failed to import plugin {plugin_class}, error: {str(e)}'
+            f'Failed to import plugin {plugin_class}, error: {str(e)}',
+            traceback = True
         )
         return
 
